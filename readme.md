@@ -5,7 +5,10 @@ ChronoProf est un utilitaire destiné aux enseignants, permettant de générer d
 ## Compatibilité
 
 ChronoProf est actuellement compatible exclusivement avec le système d'exploitation Windows.
-Un portage vers Linux pourrait être envisagé si demande en est faîte. Le portage vers macOS n'est pas prévu à ce stade.
+
+Un portage vers Linux pourrait être envisagé si demande en est faîte.
+
+Le portage vers macOS n'est pas prévu à ce stade.
 
 ## Installation et Lancement Initial
 
@@ -13,6 +16,8 @@ Un portage vers Linux pourrait être envisagé si demande en est faîte. Le port
 2.  Télécharger la version la plus récente de l'archive ChronoProf et la décompresser dans le répertoire précédemment créé.
 3.  Dans ce même répertoire, créer un sous-répertoire nommé `data`.
 4.  Organiser les photographies et autres souvenirs dans le sous-répertoire `data`, conformément à la structure détaillée ci-dessous.
+5.  Double cliquer sur `make.bat`.
+6.  En cas de succès, le fichier devrait s'ouvrir dans votre navigateur. Il est également sauvegardé sour le nom `chrono.html`. Si ce n'est pas le cas, consultez les messages d'erreurs affichés dans la console.
 
 ## Organisation du répertoire `data`
 
