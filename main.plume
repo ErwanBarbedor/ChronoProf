@@ -419,7 +419,7 @@ $file.Write(chrono.html)
           flex_direction: column
         - <a href="https:/\/github.com/ErwanBarbedor/ChronoProf">
           $img()
-            src: static/logo.svg
+            src: logo.svg
             style:
               width: 25vw
 
