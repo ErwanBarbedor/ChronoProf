@@ -1,0 +1,117 @@
+<!-- This file is part of ChronoProf⏳
+
+ChronoProf⏳ is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+ChronoProf⏳ is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with ChronoProf⏳.
+If not, see <https://www.gnu.org/licenses/>. -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256.45306mm"
+   height="55.944469mm"
+   viewBox="0 0 256.45306 55.944469"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   inkscape:export-filename="logo.png"
+   inkscape:export-xdpi="45.402161"
+   inkscape:export-ydpi="45.402161"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.6265015"
+     inkscape:cx="597.76393"
+     inkscape:cy="286.51168"
+     inkscape:window-width="2560"
+     inkscape:window-height="1351"
+     inkscape:window-x="1911"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-549.46003,-135.56524)">
+    <text
+       xml:space="preserve"
+       style="font-size:48.7605px;line-height:1.25;font-family:'Antykwa Torunska';-inkscape-font-specification:'Antykwa Torunska';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="799.98077"
+       y="158.21217"
+       id="text6"
+       transform="scale(0.87074107,1.148447)"
+       inkscape:export-filename="logo.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Garamond;-inkscape-font-specification:'Garamond Bold';stroke-width:0.264583"
+         x="799.98077"
+         y="158.21217">ChronoProf</tspan></text>
+    <path
+       style="fill:#ffffff;stroke:#000000;stroke-width:5.09692;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       id="path7"
+       d="m 93.459313,186.81017 25.918547,44.89224 -51.837095,0 z"
+       transform="matrix(0.78610824,0,0,0.44070085,499.69882,83.389361)" />
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:14.3136;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       id="path7-2"
+       d="m 93.459313,186.81017 25.918547,44.89224 -51.837095,0 z"
+       transform="matrix(0.29356807,0,0,0.1496351,545.58247,149.8289)" />
+    <path
+       style="fill:#ffffff;stroke:#000000;stroke-width:5.09692;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       id="path7-4"
+       d="m 93.459313,186.81017 25.918547,44.89224 -51.837095,0 z"
+       transform="matrix(-0.78610824,0,0,-0.44070085,646.78411,243.96519)" />
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7-9"
+       width="0.12323965"
+       height="11.797561"
+       x="-573.07837"
+       y="166.26405"
+       transform="scale(-1,1)" />
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect12"
+       width="44.456814"
+       height="5.1820827"
+       x="551.20996"
+       y="184.82761"
+       rx="7.0265326"
+       ry="2.5910413" />
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect12-1"
+       width="44.456814"
+       height="5.1820827"
+       x="550.96008"
+       y="137.06522"
+       rx="7.0265326"
+       ry="2.5910413" />
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 560.21039,148.91668 c 1.98495,0.74246 3.96985,1.48491 6.1594,2.81834 2.18955,1.33343 4.58351,3.25769 7.41705,2.83342 2.83354,-0.42427 6.10634,-3.19705 8.97773,-5.02292 2.8714,-1.82587 5.34119,-2.7047 3.69716,-0.62883 -1.64403,2.07586 -7.4019,7.10642 -13.15977,12.13698 z"
+       id="path13" />
+  </g>
+</svg>
