@@ -1,0 +1,3 @@
+-- School config
+return {
+}

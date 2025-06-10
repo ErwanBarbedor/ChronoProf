@@ -1,0 +1,499 @@
+//======================================================================
+// ChronoProf⏳ 1.0.0
+// Copyright (C) 2025 Erwan Barbedor
+
+// Check https://github.com/ErwanBarbedor/ChronoProf
+// for documentation, tutorials, or to report issues.
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3 of the License.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+//======================================================================
+
+// Plume is experimental, the code quite dirty
+// I try some stuff...
+
+$require(lua/patch)
+$require(lua/load)
+
+macro Tag(name, :noclose)
+  macro(*body, **attrs)
+    <$name
+    for k, v in pairs(attrs)
+      if k == "style"
+        \sstyle="$css($v)"
+      else
+        \s$k="$v"
+    >
+    for _, elem in ipairs(body)
+      $elem
+    if not noclose
+      </$name>
+
+html   = $Tag(html)
+head   = $Tag(head)
+body   = $Tag(body)
+div    = $Tag(div)
+title  = $Tag(title)
+script = $Tag(script)
+meta   = $Tag(meta, :noclose)
+img    = $Tag(img, :noclose)
+link   = $Tag(link, :noclose)
+style  = $Tag(style)
+
+macro css(t)
+  if type(t) == "table"
+    for k, v in pairs(t)
+      k = $gsub($k, _, -)
+      if type(v) ~= "table"
+        v = $gsub($v, ", \")
+      $k\: $cssList($v);
+  else
+    $t
+
+macro cssList(t)
+  if type(t) == "table"
+    for k, v in pairs(t)
+      $(gsub(k, "_", "-"))($v);
+  else
+    $t
+
+local macro margin(x)
+  $(2*x)rem
+
+local color =
+  yellow: #fffff0
+
+macro shadow(n, color: black)
+  filter:
+    drop_shadow: $(n)px $(n)px 1px $color
+
+// Fow now, key order isn't deterministic
+macro fade()
+  animation: scrollFade ease-in-out auto both;animation-timeline: view();animation-range: 0 100%;
+
+local styles =
+  body:
+    font_size: $(data.config.fontSizeFactor * 20 / 100  )px
+    color: #000
+    background: #000
+    margin: 0
+    box_sizing: border-box
+    display: flex
+    flex_direction: column
+    overflow_x: hidden
+    transition: all 2s
+
+    // padding_left: 20px
+
+  title:
+    position: sticky
+    display: flex
+    align_items: center
+    justify_content: center
+    top: 0
+    left: 0
+    color: #fff
+    background: #000
+    font_size: 200%
+    z_index: 3
+    padding: 0.2rem
+    border_radius: 10px
+    font_family: Schoolbell
+
+  mainTitle:
+    text_align: center
+    font_size: 300%
+    border_radius: none
+    width: 100%
+
+  groupTitle:
+    top: 50%
+    z_index: 1
+    transform:
+      // translate: -50%, -50%
+    height: 2rem
+    background: #000
+    **shadow(4, color: #0005)
+    color: #fff
+
+  picture:
+    max_height: $data.config.pictureHeight
+    max_width: 50vw
+
+  illustration_picture:
+    max_width: $(data.config.pictureHeight*2/3)
+
+  big_illustration_picture:
+    max_width: $(2*data.config.pictureHeight*2/3)
+
+  student_picture:
+    border_radius: 10px
+    **shadow(4)
+
+  group:
+    position: relative
+    margin_top: $margin(2)
+    margin_bottom: $margin(2)
+    display: flex
+    flex_direction: column
+    align_items: center
+
+  group_bar:
+    position: absolute
+    left: 4rem
+    transform:
+      // translate: 100% 
+    display: flex
+    flex_direction: column
+    width: 20px
+    height: 100%
+    background: #000
+    border_radius: 10px
+    align_items: center
+    padding_top: 20px
+    padding_bottom: 20px
+    **shadow(4, color: #0005)
+
+  group_content:
+    display: flex
+    flex_wrap: wrap
+    padding_left: 6rem
+    align_items: center
+    justify_content: center
+    min_width: 80%
+
+  student_membery:
+    display: flex
+    margin: 10px
+
+  student_membery_list:
+    display: flex
+    flex_wrap: wrap
+    align_items: flex-start
+
+local macro makeYearColors(d, p)
+  $("data-color-h"): $(d.config.color or math.random(0, 359))
+  $("data-color-s"): $(20 + 80*(1-p))
+  $("data-color-l"): $(20 + 80*(1-p))
+
+local macro makeStudent(student)
+  local rotation_range = 5
+  local rotation = $(math.random(-rotation_range, rotation_range))
+  $div(style: $fade(), id: g$student.parent.id-$student.id)
+    $div()
+      style:
+        position: relative
+        margin: 10px
+        transform:
+          rotate: $(rotation)deg
+      
+      - $img(src: $student.path)
+          style:
+            **styles.picture
+            **styles.student_picture
+
+      if data.config.showName or data.config.showSurname
+        - $div()
+            style:
+              position: absolute
+              bottom: 4px
+              left: 50%
+              padding: 0 8px 0 8px
+              max_width: 90%
+              transform:
+                translate: -50%, 0
+              background: $color.yellow
+              text_align: center
+              font_family: Playwrite DE Grund, cursive
+              font_size: 50%
+              **shadow(1)
+            -
+              if data.config.showName
+                $student.name
+              if data.config.showSurname and data.config.showName
+                \s
+              if data.config.showSurname
+                $student.surname
+      if data.config.showMultipleGroup
+        - $div()
+            style:
+              position: absolute
+              top: 0
+              left: 0
+              display: flex
+              flex_direction: column
+            for _, link in ipairs(student.links)
+              if link.name ~= student.parent.name
+                - $div()
+                    style:
+                      background: $color.yellow
+                      border_radius: 5px
+                      font_size: 70%
+                      padding: 2px
+                      cursor: pointer
+                      **shadow(2)
+                    - <a href="#g$link.id-$student.id">$link.name</a>
+      - $div()
+          style:
+            position: absolute
+            top: 0
+            left: 50%
+            transform:
+              translate: -50%, -50%
+            height: $(data.config.pictureHeight/8)
+            aspect_ratio: 2/3
+            background: #fffa
+            clip_path:
+              polygon(
+                0 0,
+                18% 10%, 32% 0, 48% 10%, 64% 0, 78% 10%, 100% 0,
+                100% 100%,
+                78% 90%, 64% 100%, 48% 90%, 32% 100%, 18% 90%, 0 100%
+              )
+            **fade()
+
+local macro randomCut()
+  local directions =
+    - x: 0
+      y: 100
+    - x: 100
+      y: 0
+    - x: 0
+      y: -100
+    - x: -100
+      y: 0
+
+  local waveHeight = 30
+  local waveWidth = 10
+
+  local posx = 0
+  local posy = 0
+  polygon(
+  0 0
+  for _, direction in ipairs(directions)
+    local n = $math.random(3, 10)
+    for i=1, n
+      local dx = 0
+      local dy = 0
+
+      if direction.x~=0
+        dy = $(-direction.x*math.random(0, waveHeight)/1000)
+      if direction.y~=0
+        dx = $(direction.y*math.random(0, waveWidth)/1000)
+
+      posx += $(direction.x/n)
+      posy += $(direction.y/n)
+      ,$(posx+dx)% $(posy+dy)%
+  )
+
+local macro makeStudentMemberies(student)
+  $div()
+    style:
+      **styles.student_membery_list
+      **fade()
+      cursor: pointer
+    -
+      for _, membery in ipairs(student.membery.img)
+        $div(class: can-be-zoomed)
+          style: $shadow(4)
+          -
+            $img(src: $membery)
+              style:
+                **styles.picture
+                margin: 4px
+                pointer_events: none
+                clip_path: $randomCut()
+      for _, membery in ipairs(student.membery.txt)
+        $div()
+          style:
+            **shadow(4)
+          - $div()
+              style:
+                clip_path: $randomCut()
+                max_width: $(data.config.pictureHeight*3)
+                min_height: $(data.config.pictureHeight-20)
+                background_color: $color.yellow
+                padding: 10px
+                margin: 4px
+                font_size: 70%
+                font_family: Playwrite DE Grund, cursive
+                background_size: 20px 20px;
+                background_image:
+                  linear-gradient(to right, #e0e0e0 1px, transparent 1px),
+                  linear-gradient(to bottom, #e0e0e0 1px, transparent 1px)
+                display: flex
+                align_content: center
+              - <p>$txtFormat($file.Read($membery))</p>
+
+local illustrationPool = $({})
+macro pushIllustrationPool(t)
+  if #t.illustrations>0
+    $insert($illustrationPool, $t.illustrations)
+  elseif #illustrationPool>0
+    $insert($illustrationPool, $(illustrationPool[#illustrationPool]))
+  else
+    $insert($illustrationPool, $({}))
+
+local nextIllustration = 0// temps depuis la dernière insertion
+macro getIllustration(:big, :forced)
+  local pool = $(illustrationPool[#illustrationPool])
+
+  if pool and #pool>0
+
+    if not pool.remains or #pool.remains == 0
+      pool.remains =
+        for _, x in ipairs(pool)
+          - $x
+
+    if nextIllustration == 0 or forced
+      nextIllustration = $(math.random(data.config.illustrationMinRange, data.config.illustrationMaxRange)-1)
+
+      local i = $(math.random(1, #pool.remains))
+      local path = $(remove(pool.remains, i))
+      if big
+        $div()
+          style:
+            width: 100%
+            display: flex
+            justify_content: center
+          - $img()
+              src: $path
+              style:
+                **styles.picture
+                **styles.illustration_picture
+                **styles.big_illustration_picture
+                if data.config.illustrationBlend
+                  mix_blend_mode: multiply
+
+      else
+        $img()
+          src: $path
+          style:
+            **styles.picture
+            **styles.illustration_picture
+            if data.config.illustrationBlend
+              mix_blend_mode: multiply
+    else
+      nextIllustration = $(nextIllustration-1)
+
+macro popIllustration()
+  $remove($illustrationPool)
+
+$file.Write(chrono.html)
+  $html()
+    $head()
+      $title(Livre (barbe)d'or)
+      $link()
+        href: static/style.css
+        rel: stylesheet
+      $link()
+        href: https:/\/fonts.googleapis.com/css2?family=Schoolbell&display=swap
+        rel: stylesheet
+      $link()
+        href: https:/\/fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap
+        rel: stylesheet
+      $meta(charset: utf-8)
+
+    $body(style: $styles.body)
+      $div()
+        $("data-color-h"): 0
+        $("data-color-s"): 100%
+        $("data-color-l"): 100%
+        style:
+          width: 100%
+          display: flex
+          justify_content: center
+          align_items: center
+          padding_top: $margin(2)
+          padding_bottom: $margin(2)
+          height: 90vh
+          flex_direction: column
+        - <a href="https:/\/github.com/ErwanBarbedor/ChronoProf">
+          $img()
+            src: static/logo.svg
+            style:
+              width: 25vw
+
+          </a>
+        - $div()
+            style:
+              display: flex
+              flex_wrap: wrap
+              width: 50%
+              justify_content: center;
+            for i, year in ipairs(data.children)
+              - <a href="#$year.name" style="background:#000;border-radius:10px;margin:10px;padding:5px"> $year.name </a>
+      $div(id: main)
+        $(pushIllustrationPool(data))
+        for i, year in ipairs(data.children)
+          $(pushIllustrationPool(year))
+          local colors = $makeYearColors($year, $(i/#data.children))
+          $div(id: $year.name, **colors)
+            $div()
+              for _, school in ipairs(year.children)
+                $(pushIllustrationPool(school))
+                $div()
+                  $div()
+                    style:
+                      **styles.title
+                      **styles.mainTitle
+                      top: 0
+                      if i>1
+                        margin_top: 6rem
+                      margin_bottom: 3rem
+                    - $school.name, $year.name
+
+                  $div()
+                    for _, group in ipairs(school.children)
+                      $(pushIllustrationPool(group))
+                      if data.config.illustrationTopGroup
+                        $getIllustration(:big, :forced)
+                      $div(style: $styles.group)
+                        $div(style: $styles.group_bar)
+                          $div()
+                            style:
+                              **styles.title
+                              **styles.groupTitle
+                            - $group.name
+
+                        if group.common
+                          $div(style: $styles.group_content)
+                            $div(style: $styles.student_membery)
+                              $makeStudentMemberies($group.common)
+                        
+                        $div(style: $styles.group_content)
+                          for i, student in ipairs(group.children)
+                            if not student.hasMembery
+                              $div()
+                                $div()
+                                  $makeStudent($student)
+                              if i<#group.children and data.config.illustrationBetweenStudent
+                                $getIllustration()
+                        
+                        $div(style: $styles.group_content)
+                          for _, student in ipairs(group.children)
+                            if student.hasMembery
+                              if i<#group.children and data.config.illustrationBetweenStudent
+                                $getIllustration()
+                              $div(style: $styles.student_membery)
+                                $makeStudent($student)
+                                $makeStudentMemberies($student)
+                      void $popIllustration()
+                void $popIllustration()
+          void $popIllustration()
+        void $popIllustration()
+    $div()
+      style:
+        margin_bottom: $margin(4)
+    $script(src: static/script.js)
+
+$print(chronos.html généré avec succès!)

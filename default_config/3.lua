@@ -1,0 +1,3 @@
+-- Group config
+return {
+}
