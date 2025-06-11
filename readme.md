@@ -78,7 +78,7 @@ Les souvenirs seront affichés dans l'ordre alphabétique des noms des fichiers.
 Les souvenirs collectifs liés à une classe entière peuvent être placés dans un sous-répertoire nommé `classe` au sein du répertoire de la classe concernée.
 Exemple : `data/2024-2025/Gabriel Peri/3e2/classe/`
 
-### Sous-répertoires `illustration`
+### Sous-répertoires `illustrations`
 Il est possible, dans n'importe quel répertoire, de créer un dossier `illustrations`.
 
 Par exemple, `data/2024-2025/illustrations` ou `data/2024-2025/Gabriel Peri/3e2/illustrations`.
