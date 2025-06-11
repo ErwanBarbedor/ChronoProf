@@ -79,9 +79,9 @@ Les souvenirs collectifs liés à une classe entière peuvent être placés dans
 Exemple : `data/2024-2025/Gabriel Peri/3e2/classe/`
 
 ### Sous-répertoires `illustration`
-Il est possible, dans n'importe quel répertoire, de créer un dossier `illustration`.
+Il est possible, dans n'importe quel répertoire, de créer un dossier `illustrations`.
 
-Par exemple, `data/2024-2025/illustration` ou `data/2024-2025/Gabriel Peri/3e2/illustration`.
+Par exemple, `data/2024-2025/illustrations` ou `data/2024-2025/Gabriel Peri/3e2/illustrations`.
 
 Les images qu'il contient seront aléatoirement disposés parmis les photos des élèves.
 
