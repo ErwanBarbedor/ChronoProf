@@ -106,3 +106,8 @@ return { -- Ligne initiale à ne pas modifier
 En cas d'erreur de syntaxe rendant un fichier `config.lua` invalide, vous pouvez le supprimer. ChronoProf le recréera avec les valeurs par défaut lors de sa prochaine exécution.
 
 Si le dossier contient uniquement `return {}`, aucune option n'est encore disponible.
+
+## Changelog
+
+### v1.0.1
+- `Plume🪶 0.41` -> `Plume🪶 0.43`

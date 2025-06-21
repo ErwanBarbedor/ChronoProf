@@ -1,5 +1,5 @@
 //======================================================================
-// ChronoProf⏳ 1.0.0
+// ChronoProf⏳ 1.0.1
 // Copyright (C) 2025 Erwan Barbedor
 
 // Check https://github.com/ErwanBarbedor/ChronoProf
@@ -33,7 +33,7 @@ macro Tag(name, :noclose)
       else
         \s$k="$v"
     >
-    for _, elem in ipairs(body)
+    for elem in body
       $elem
     if not noclose
       </$name>
@@ -51,7 +51,7 @@ style  = $Tag(style)
 
 macro css(t)
   if type(t) == "table"
-    for k, v in pairs(t)
+    for k, v in items(t)
       k = $gsub($k, _, -)
       if type(v) ~= "table"
         v = $gsub($v, ", \")
@@ -231,7 +231,7 @@ local macro makeStudent(student)
               left: 0
               display: flex
               flex_direction: column
-            for _, link in ipairs(student.links)
+            for link in student.links
               if link.name ~= student.parent.name
                 - $div()
                     style:
@@ -279,7 +279,7 @@ local macro randomCut()
   local posy = 0
   polygon(
   0 0
-  for _, direction in ipairs(directions)
+  for direction in directions
     local n = $math.random(3, 10)
     for i=1, n
       local dx = 0
@@ -302,7 +302,7 @@ local macro makeStudentMemberies(student)
       **fade()
       cursor: pointer
     -
-      for _, membery in ipairs(student.membery.img)
+      for membery in student.membery.img
         $div(class: can-be-zoomed)
           style: $shadow(4)
           -
@@ -312,7 +312,7 @@ local macro makeStudentMemberies(student)
                 margin: 4px
                 pointer_events: none
                 clip_path: $randomCut()
-      for _, membery in ipairs(student.membery.txt)
+      for membery in student.membery.txt
         $div()
           style:
             **shadow(4)
@@ -351,7 +351,7 @@ macro getIllustration(:big, :forced)
 
     if not pool.remains or #pool.remains == 0
       pool.remains =
-        for _, x in ipairs(pool)
+        for x in pool
           - $x
 
     if nextIllustration == 0 or forced
@@ -386,7 +386,7 @@ macro getIllustration(:big, :forced)
       nextIllustration = $(nextIllustration-1)
 
 macro popIllustration()
-  $remove($illustrationPool)
+  local a = $remove($illustrationPool)
 
 $file.Write(chrono.html)
   $html()
@@ -430,16 +430,16 @@ $file.Write(chrono.html)
               flex_wrap: wrap
               width: 50%
               justify_content: center;
-            for i, year in ipairs(data.children)
+            for i, year in enumerate(data.children)
               - <a href="#$year.name" style="background:#000;border-radius:10px;margin:10px;padding:5px"> $year.name </a>
       $div(id: main)
         $(pushIllustrationPool(data))
-        for i, year in ipairs(data.children)
+        for i, year in enumerate(data.children)
           $(pushIllustrationPool(year))
           local colors = $makeYearColors($year, $(i/#data.children))
           $div(id: $year.name, **colors)
             $div()
-              for _, school in ipairs(year.children)
+              for school in year.children
                 $(pushIllustrationPool(school))
                 $div()
                   $div()
@@ -453,7 +453,7 @@ $file.Write(chrono.html)
                     - $school.name, $year.name
 
                   $div()
-                    for _, group in ipairs(school.children)
+                    for group in school.children
                       $(pushIllustrationPool(group))
                       if data.config.illustrationTopGroup
                         $getIllustration(:big, :forced)
@@ -471,7 +471,7 @@ $file.Write(chrono.html)
                               $makeStudentMemberies($group.common)
                         
                         $div(style: $styles.group_content)
-                          for i, student in ipairs(group.children)
+                          for i, student in enumerate(group.children)
                             if not student.hasMembery
                               $div()
                                 $div()
@@ -480,7 +480,7 @@ $file.Write(chrono.html)
                                 $getIllustration()
                         
                         $div(style: $styles.group_content)
-                          for _, student in ipairs(group.children)
+                          for student in group.children
                             if student.hasMembery
                               if i<#group.children and data.config.illustrationBetweenStudent
                                 $getIllustration()
